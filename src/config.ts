@@ -36,7 +36,7 @@ export const oferta = {
   precoDe: 'R$ 49,90',
   precoPor: 'R$ 19,90',
   // >>> LINK DE CHECKOUT (Hotmart) <<<
-  checkoutUrl: 'https://pay.hotmart.com/L106039840O',
+  checkoutUrl: 'https://pay.hotmart.com/L106039840O?sck=orbt-vst-8cRJesDF3kxj_juPksTR&bid=1784128321347',
 };
 
 // >>> TEXTO DO BOTÃO COMPARTILHAR (vai junto com o link do site) <<<
