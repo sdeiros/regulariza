@@ -1,5 +1,7 @@
 ---
-import { site } from "../config";
+import SEO from "../components/SEO.astro";
+import { site } from "../config.mjs";
+
 ---
 
 <!doctype html>
@@ -7,16 +9,7 @@ import { site } from "../config";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{site.titulo}</title>
-    <meta name="description" content={site.descricao} />
-    <meta name="theme-color" content="#265D2B" />
-    <link rel="icon" type="image/svg+xml" href="/logo-vertical.svg" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="pt_BR" />
-    <meta property="og:site_name" content={site.nome} />
-    <meta property="og:title" content={site.titulo} />
-    <meta property="og:description" content={site.descricao} />
+    <SEO />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

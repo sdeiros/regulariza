@@ -1,0 +1,97 @@
+---
+// ============================================================
+// SEO.astro — TODO o SEO do site mora aqui.
+// Uso no Layout: <SEO /> dentro do <head>.
+// Em páginas futuras: <SEO titulo="..." descricao="..." caminho="/blog" />
+// ============================================================
+import { site, workshop, oferta, fotos } from '../config';
+
+interface Props {
+  titulo?: string;
+  descricao?: string;
+  caminho?: string; // ex: "/blog" — usado no canonical
+  imagemOg?: string; // imagem de compartilhamento (1200x630 ideal)
+  tipo?: 'website' | 'article';
+  noindex?: boolean; // páginas que não devem ir pro Google (ex: /obrigado)
+}
+
+const {
+  titulo = site.titulo,
+  descricao = site.descricao,
+  caminho = '/',
+  imagemOg = fotos.hero, // >>> depois troque por uma arte 1200x630 dedicada <
+  tipo = 'website',
+  noindex = false,
+} = Astro.props;
+
+const urlCanonica = new URL(caminho, site.url).href;
+
+// ---------- Dados estruturados (JSON-LD) ----------
+const schemaOrganizacao = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.nome,
+  url: site.url,
+  logo: new URL('/logo-vertical.svg', site.url).href,
+  sameAs: [site.instagram],
+  description:
+    'Consultoria e treinamentos em regulamentação sanitária para estabelecimentos de saúde e estética.',
+};
+
+const schemaEvento = {
+  '@context': 'https://schema.org',
+  '@type': 'EducationEvent',
+  name: 'Workshop Estética Blindada — o passo a passo para regularizar sua clínica na Vigilância Sanitária',
+  description: descricao,
+  startDate: workshop.dataISO,
+  eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+  eventStatus: 'https://schema.org/EventScheduled',
+  location: {
+    '@type': 'VirtualLocation',
+    url: site.url,
+  },
+  image: [imagemOg],
+  organizer: {
+    '@type': 'Organization',
+    name: site.nome,
+    url: site.url,
+  },
+  offers: {
+    '@type': 'Offer',
+    url: oferta.checkoutUrl,
+    price: oferta.precoPor.replace('R$ ', '').replace(',', '.'),
+    priceCurrency: 'BRL',
+    availability: 'https://schema.org/InStock',
+    validFrom: new Date().toISOString().split('T')[0],
+  },
+};
+---
+
+<!-- Essenciais -->
+<title>{titulo}</title>
+<meta name="description" content={descricao} />
+<link rel="canonical" href={urlCanonica} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+<meta name="theme-color" content="#265D2B" />
+<link rel="icon" type="image/svg+xml" href="/logo-vertical.svg" />
+
+<!-- Open Graph (WhatsApp, Instagram, Facebook, LinkedIn) -->
+<meta property="og:type" content={tipo} />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:site_name" content={site.nome} />
+<meta property="og:title" content={titulo} />
+<meta property="og:description" content={descricao} />
+<meta property="og:url" content={urlCanonica} />
+<meta property="og:image" content={imagemOg} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={titulo} />
+<meta name="twitter:description" content={descricao} />
+<meta name="twitter:image" content={imagemOg} />
+
+<!-- Dados estruturados -->
+<script type="application/ld+json" set:html={JSON.stringify(schemaOrganizacao)} />
+<script type="application/ld+json" set:html={JSON.stringify(schemaEvento)} />
