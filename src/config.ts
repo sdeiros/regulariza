@@ -10,7 +10,7 @@ export const site = {
     'O passo a passo para regularizar seu estabelecimento de estética na Vigilância Sanitária. Workshop ao vivo com quem foi fiscal da VISA por 25 anos.',
   url: 'https://regularizavisa.com.br',
   // >>> INSTAGRAM — troque pelo @ certo <<<
-  instagram: 'https://instagram.com/SEU_ARROBA_AQUI',
+  instagram: 'https://instagram.com/regularizavisa',
 };
 
 // ============================================================
