@@ -7,7 +7,7 @@ export const site = {
   nome: 'Regulariza Visa',
   titulo: 'Método Estética Blindada — Regulariza Visa',
   descricao:
-    'O passo a passo para regularizar seu estabelecimento de estética na Vigilância Sanitária. Workshop ao vivo com quem foi fiscal da VISA por 25 anos.',
+    'O passo a passo para regularizar seu estabelecimento de estética na Vigilância Sanitária. Workshop ao vivo com quem foi fiscal da VIGILÂNCIA SANITÁRIA por 25 anos.',
   url: 'https://regularizavisa.com.br',
   // >>> INSTAGRAM — troque pelo @ certo <<<
   instagram: 'https://instagram.com/regularizavisa',
@@ -43,7 +43,7 @@ export const oferta = {
 export const compartilhar = {
   titulo: 'Workshop Estética Blindada — Regulariza Visa',
   texto:
-    'Sua clínica passaria numa inspeção da VISA hoje? 👀 Workshop com quem foi fiscal da Vigilância Sanitária por 25 anos, ensinando o passo a passo da regularização. Olha isso:',
+    'Sua clínica passaria numa inspeção da VIGILÂNCIA SANITÁRIA hoje? 👀 Workshop com quem foi fiscal da Vigilância Sanitária por 25 anos, ensinando o passo a passo da regularização. Olha isso:',
 };
 
 // >>> FOTOS — substitua pelas definitivas depois (podem ficar em /public) <<<
