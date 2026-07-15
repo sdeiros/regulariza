@@ -1,0 +1,370 @@
+---
+import { site } from '../config';
+---
+
+<dialog id="modal-termos" class="modal">
+  <div class="modal-topo">
+    <h2>Termos de Uso</h2>
+    <button type="button" class="fechar" data-fecha-modal aria-label="Fechar">×</button>
+  </div>
+  <div class="modal-corpo">
+    <h3>1. Termos</h3>
+    <p>
+      Ao acessar o site {site.nome}, você concorda em cumprir estes termos de
+      serviço, todas as leis e regulamentos aplicáveis, e concorda que é
+      responsável pelo cumprimento de todas as leis locais aplicáveis. Se você
+      não concordar com algum desses termos, está proibido de usar ou acessar
+      este site. Os materiais contidos neste site são protegidos pelas leis de
+      direitos autorais e marcas comerciais aplicáveis.
+    </p>
+    <h3>2. Uso de Licença</h3>
+    <p>
+      É concedida permissão para baixar temporariamente uma cópia dos materiais
+      (informações ou software) no site {site.nome}, apenas para visualização
+      transitória pessoal e não comercial. Esta é a concessão de uma licença,
+      não uma transferência de título e, sob esta licença, você não pode:
+    </p>
+    <ol>
+      <li>modificar ou copiar os materiais;</li>
+      <li>
+        usar os materiais para qualquer finalidade comercial ou para exibição
+        pública (comercial ou não comercial);
+      </li>
+      <li>
+        tentar descompilar ou fazer engenharia reversa de qualquer software
+        contido no site {site.nome};
+      </li>
+      <li>
+        remover quaisquer direitos autorais ou outras notações de propriedade
+        dos materiais; ou
+      </li>
+      <li>
+        transferir os materiais para outra pessoa ou "espelhar" os materiais em
+        qualquer outro servidor.
+      </li>
+    </ol>
+    <p>
+      Esta licença será automaticamente rescindida se você violar alguma dessas
+      restrições e poderá ser rescindida por {site.nome} a qualquer momento. Ao
+      encerrar a visualização desses materiais ou após o término desta licença,
+      você deve apagar todos os materiais baixados em sua posse, seja em
+      formato eletrônico ou impresso.
+    </p>
+    <h3>3. Isenção de responsabilidade</h3>
+    <p>
+      Os materiais no site da {site.nome} são fornecidos "como estão".
+      {site.nome} não oferece garantias, expressas ou implícitas, e, por este
+      meio, isenta e nega todas as outras garantias, incluindo, sem limitação,
+      garantias implícitas ou condições de comercialização, adequação a um fim
+      específico ou não violação de propriedade intelectual ou outra violação
+      de direitos. Além disso, {site.nome} não garante ou faz qualquer
+      representação relativa à precisão, aos resultados prováveis ou à
+      confiabilidade do uso dos materiais em seu site ou de outra forma
+      relacionado a esses materiais ou em sites vinculados a este site.
+    </p>
+    <h3>4. Limitações</h3>
+    <p>
+      Em nenhum caso {site.nome} ou seus fornecedores serão responsáveis por
+      quaisquer danos (incluindo, sem limitação, danos por perda de dados ou
+      lucro ou devido a interrupção dos negócios) decorrentes do uso ou da
+      incapacidade de usar os materiais em {site.nome}, mesmo que {site.nome}
+      ou um representante autorizado tenha sido notificado oralmente ou por
+      escrito da possibilidade de tais danos. Como algumas jurisdições não
+      permitem limitações em garantias implícitas, ou limitações de
+      responsabilidade por danos consequentes ou incidentais, essas limitações
+      podem não se aplicar a você.
+    </p>
+    <h3>5. Precisão dos materiais</h3>
+    <p>
+      Os materiais exibidos no site da {site.nome} podem incluir erros
+      técnicos, tipográficos ou fotográficos. {site.nome} não garante que
+      qualquer material em seu site seja preciso, completo ou atual.
+      {site.nome} pode fazer alterações nos materiais contidos em seu site a
+      qualquer momento, sem aviso prévio, e não se compromete a atualizar os
+      materiais.
+    </p>
+    <h3>6. Links</h3>
+    <p>
+      {site.nome} não analisou todos os sites vinculados ao seu site e não é
+      responsável pelo conteúdo de nenhum site vinculado. A inclusão de
+      qualquer link não implica endosso por {site.nome} do site. O uso de
+      qualquer site vinculado é por conta e risco do usuário.
+    </p>
+    <h3>Modificações</h3>
+    <p>
+      {site.nome} pode revisar estes termos de serviço do site a qualquer
+      momento, sem aviso prévio. Ao usar este site, você concorda em ficar
+      vinculado à versão atual desses termos de serviço.
+    </p>
+    <h3>Lei aplicável</h3>
+    <p>
+      Estes termos e condições são regidos e interpretados de acordo com as
+      leis aplicáveis, e você se submete irrevogavelmente à jurisdição
+      exclusiva dos tribunais competentes.
+    </p>
+    <button type="button" class="cta aceitar" data-fecha-modal>Eu aceito</button>
+  </div>
+</dialog>
+
+
+<style>
+  .modal {
+    /* centralizado na tela */
+    margin: auto;
+    border: none;
+    border-radius: var(--raio);
+    max-width: 680px;
+    width: calc(100% - 2.5rem);
+    max-height: 82dvh;
+    padding: 0;
+    background: var(--branco);
+    color: var(--tinta);
+    /* o corpo rola, o modal não */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(23, 37, 26, 0.35);
+  }
+  .modal:not([open]) {
+    display: none;
+  }
+
+  /* ===== Animações de entrada ===== */
+  .modal[open] {
+    animation: modal-entra 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @keyframes modal-entra {
+    from {
+      opacity: 0;
+      transform: translateY(26px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Fundo com desfoque */
+  .modal::backdrop {
+    background: rgba(23, 37, 26, 0.55);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+  }
+  .modal[open]::backdrop {
+    animation: fundo-entra 0.45s ease;
+  }
+  @keyframes fundo-entra {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* ===== Animações de saída (classe adicionada via JS) ===== */
+  .modal.fechando {
+    animation: modal-sai 0.28s cubic-bezier(0.55, 0, 0.55, 0.2) forwards;
+  }
+  .modal.fechando::backdrop {
+    animation: fundo-sai 0.28s ease forwards;
+  }
+  @keyframes modal-sai {
+    to {
+      opacity: 0;
+      transform: translateY(18px) scale(0.97);
+    }
+  }
+  @keyframes fundo-sai {
+    to {
+      opacity: 0;
+    }
+  }
+
+  .modal-topo {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--verde-fiscal);
+    color: var(--branco);
+    padding: 1rem 1.5rem;
+  }
+  .modal-topo h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .fechar {
+    background: none;
+    border: none;
+    color: var(--lima);
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform var(--transicao);
+  }
+  .fechar:hover {
+    transform: rotate(90deg);
+  }
+  .fechar:focus-visible {
+    outline: 3px solid var(--lima);
+    outline-offset: 3px;
+  }
+
+  /* ===== Área de rolagem ===== */
+  .modal-corpo {
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain; /* não "vaza" o scroll pra página */
+    -webkit-overflow-scrolling: touch;
+    padding: 1.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--verde-fiscal) transparent;
+  }
+  .modal-corpo::-webkit-scrollbar {
+    width: 8px;
+  }
+  .modal-corpo::-webkit-scrollbar-thumb {
+    background: var(--verde-fiscal);
+    border-radius: 999px;
+  }
+  .modal-corpo::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .modal-corpo h3 {
+    color: var(--verde-fiscal);
+    font-size: 1.2rem;
+    margin: 1.4rem 0 0.4rem;
+  }
+  .modal-corpo p,
+  .modal-corpo ol {
+    font-size: 0.93rem;
+    color: var(--tinta-suave);
+    margin-bottom: 0.8rem;
+  }
+  .modal-corpo ol {
+    padding-left: 1.4rem;
+  }
+  .aceitar {
+    font-size: 1.1rem;
+    padding: 0.6rem 1.8rem;
+    margin-top: 1rem;
+  }
+
+  /* ===== Mobile: sobe como folha ocupando quase a tela toda ===== */
+  @media (max-width: 700px) {
+    .modal {
+      width: 100%;
+      max-width: 100%;
+      height: 92dvh;
+      max-height: 92dvh;
+      margin: auto 0 0; /* colado embaixo */
+      border-radius: 18px 18px 0 0;
+    }
+    .modal[open] {
+      animation: folha-entra 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .modal.fechando {
+      animation: folha-sai 0.3s cubic-bezier(0.55, 0, 0.55, 0.2) forwards;
+    }
+    @keyframes folha-entra {
+      from {
+        opacity: 1;
+        transform: translateY(100%);
+      }
+      to {
+        transform: none;
+      }
+    }
+    @keyframes folha-sai {
+      to {
+        transform: translateY(100%);
+      }
+    }
+    /* alça visual de folha */
+    .modal-topo::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 44px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.35);
+    }
+    .modal-topo {
+      position: relative;
+      padding-top: 1.3rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .modal[open],
+    .modal[open]::backdrop,
+    .modal.fechando,
+    .modal.fechando::backdrop {
+      animation: none;
+    }
+    .fechar {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const trava = (ativa: boolean) => {
+    // trava o scroll da página enquanto o modal está aberto
+    document.documentElement.style.overflow = ativa ? 'hidden' : '';
+  };
+
+  const fechaAnimado = (modal: HTMLDialogElement) => {
+    if (modal.classList.contains('fechando')) return;
+    const reduzido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduzido) {
+      modal.close();
+      trava(false);
+      return;
+    }
+    modal.classList.add('fechando');
+    modal.addEventListener(
+      'animationend',
+      () => {
+        modal.classList.remove('fechando');
+        modal.close();
+        trava(false);
+      },
+      { once: true }
+    );
+  };
+
+  document.querySelectorAll<HTMLButtonElement>('[data-abre-modal]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const modal = document.getElementById(btn.dataset.abreModal!) as HTMLDialogElement | null;
+      if (!modal) return;
+      modal.showModal();
+      modal.querySelector('.modal-corpo')?.scrollTo({ top: 0 });
+      trava(true);
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('[data-fecha-modal]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const modal = btn.closest('dialog');
+      if (modal) fechaAnimado(modal as HTMLDialogElement);
+    });
+  });
+
+  document.querySelectorAll<HTMLDialogElement>('dialog.modal').forEach((modal) => {
+    // clique no fundo fecha
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) fechaAnimado(modal);
+    });
+    // tecla Esc: intercepta pra fechar com animação
+    modal.addEventListener('cancel', (e) => {
+      e.preventDefault();
+      fechaAnimado(modal);
+    });
+  });
+</script>

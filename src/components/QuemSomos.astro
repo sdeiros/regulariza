@@ -1,0 +1,139 @@
+---
+import { fotos } from "../config";
+
+const equipe = [
+  {
+    area: "Técnica",
+    quem: "Farmacêutica, mestre e doutoranda em Vigilância Sanitária, 25 anos como fiscal da VISA no Rio de Janeiro.",
+  },
+  {
+    area: "Jurídica",
+    quem: "Advogado especialista em assuntos regulatórios.",
+  },
+  {
+    area: "Contábil",
+    quem: "Contador especializado em clínicas de saúde e estética.",
+  },
+];
+---
+
+<section class="quem-somos">
+  <div class="container grid">
+    <div class="foto-wrap reveal">
+      <img src={fotos.equipe} alt="Equipe da Regulariza Visa" loading="lazy" />
+    </div>
+    <div class="texto">
+      <h2 class="reveal anima-texto" style="--i: 1">
+        Quem te ensina é quem <span class="grifo">fiscalizava</span>
+      </h2>
+      <p class="descricao reveal" style="--i: 2">
+        Somos a <strong>Regulariza Visa</strong>: assessoria técnica, jurídica e
+        contábil em regulamentação sanitária, reunida em uma equipe única. Você
+        aprende o caminho com quem conhece os dois lados da inspeção.
+      </p>
+      <ul class="assinaturas">
+        {
+          equipe.map((e, i) => (
+            <li class="reveal" style={`--i: ${i + 3}`}>
+              <span class="area">{e.area}</span>
+              <span>{e.quem}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .quem-somos {
+    padding: 3.5rem 0;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .foto-wrap {
+    position: relative;
+  }
+  .foto-wrap::before {
+    content: "";
+    position: absolute;
+    inset: -14px 14px 14px -14px;
+    background: var(--lima-suave);
+    border-radius: var(--raio);
+  }
+  .foto-wrap img {
+    position: relative;
+    border-radius: var(--raio);
+    border: 2px solid var(--verde-fiscal);
+    width: 100%;
+    height: auto; /* respeita a proporção natural da foto, sem cortar */
+  }
+  h2 {
+    font-size: clamp(2rem, 4.2vw, 3rem);
+    font-weight: 800;
+    color: var(--verde-fiscal);
+    margin: 0rem 0 2rem;
+  }
+  .descricao {
+    color: var(--tinta-suave);
+    margin-bottom: 1.5rem;
+  }
+  .assinaturas {
+    list-style: none;
+    display: grid;
+    gap: 0.8rem;
+  }
+  .assinaturas li {
+    background: var(--branco);
+    border: 1px solid rgba(38, 93, 43, 0.25);
+    border-radius: var(--raio);
+    padding: 0.9rem 1.1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    font-size: 0.95rem;
+    transition:
+      transform var(--transicao),
+      box-shadow var(--transicao);
+  }
+  .assinaturas li:hover {
+    transform: translateX(6px);
+    box-shadow: var(--sombra-suave);
+  }
+  .area {
+    font-family: var(--fonte-ficha);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--branco);
+    background: var(--verde-fiscal);
+    padding: 0.3em 0.8em;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 800px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .foto-wrap {
+      width: 100%; /* foto ocupa a largura toda */
+    }
+    .foto-wrap::before {
+      inset: -10px 10px 10px -10px; /* fundo lima com offset menor no mobile */
+    }
+    /* título e descrição centralizados no mobile */
+    .texto {
+      text-align: center;
+    }
+    .assinaturas li {
+      text-align: left; /* cards continuam alinhados à esquerda (melhor leitura) */
+    }
+  }
+</style>

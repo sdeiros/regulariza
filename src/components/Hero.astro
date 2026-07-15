@@ -1,0 +1,221 @@
+---
+import { workshop, oferta, fotos } from '../config';
+---
+
+<section class="hero">
+  <div class="container grid">
+    <div class="texto">
+      <p class="selo entra" style="--e: 0">
+        Workshop · {workshop.formato} · {workshop.data} às {workshop.horario}
+      </p>
+      <h1 class="entra" style="--e: 1">
+        O passo a passo para <span class="sublinhado">regularizar</span> sua
+        clínica de estética na Vigilância Sanitária
+      </h1>
+      <p class="apoio entra" style="--e: 2">
+        Blinde seu estabelecimento contra multas e interdições, com quem
+        esteve do outro lado do balcão como
+        <strong>Fiscal da VISA por 25 ANOS</strong>.
+      </p>
+      <div class="acoes entra" style="--e: 3">
+        <a href={oferta.checkoutUrl} target="_blank" rel="noopener" class="cta"
+          >Quero blindar minha clínica</a
+        >
+        <p class="micro">Acesso imediato após a inscrição · {oferta.precoPor}</p>
+      </div>
+      <ul class="provas entra" style="--e: 4">
+        <li><strong>25 ANOS</strong> DE FISCALIZAÇÃO VISA</li>
+        <li><strong>3 FRENTES:</strong> TÉCNICA, JURÍDICA E CONTÁBIL</li>
+        <li><strong>100% ONLINE</strong></li>
+      </ul>
+    </div>
+    <div class="foto-wrap entra" style="--e: 2">
+      <img
+        src={fotos.hero}
+        alt="Fundadora da Regulariza Visa"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <span class="cred" aria-label="25 anos como fiscal da Vigilância Sanitária">
+        <strong>25 ANOS</strong> COMO FISCAL DA VISA·RJ
+      </span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(60rem 30rem at 110% -20%, rgba(207, 234, 140, 0.16), transparent 60%),
+      radial-gradient(40rem 24rem at -15% 115%, rgba(0, 166, 80, 0.18), transparent 60%),
+      var(--verde-fiscal);
+    color: var(--branco);
+    overflow: hidden;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 2.5rem;
+    align-items: center;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .entra {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: entrar 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: calc(var(--e) * 130ms);
+  }
+  @keyframes entrar {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .selo {
+    font-family: var(--fonte-ficha);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--verde-escuro);
+    background: var(--lima);
+    display: inline-block;
+    padding: 0.4em 1em;
+    border-radius: 3px;
+    margin-bottom: 1.3rem;
+  }
+  h1 {
+    font-size: clamp(2.5rem, 5.4vw, 4.2rem);
+    font-weight: 800;
+    margin-bottom: 1.1rem;
+  }
+
+  /* Sublinhado lima que se desenha ao carregar */
+  .sublinhado {
+    color: var(--lima);
+    position: relative;
+    white-space: nowrap;
+  }
+  .sublinhado::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.02em;
+    height: 0.14em;
+    background: var(--lima);
+    border-radius: 999px;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: desenhar 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.85s forwards;
+  }
+  @keyframes desenhar {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .apoio {
+    font-size: 1.08rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 34rem;
+    margin-bottom: 1.8rem;
+  }
+  .apoio strong {
+    color: var(--lima);
+  }
+  .micro {
+    font-family: var(--fonte-ficha);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 0.8rem;
+  }
+
+  /* Faixa de credenciais */
+  .provas {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.6rem;
+    margin-top: 1.8rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid rgba(207, 234, 140, 0.25);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.78);
+  }
+  .provas strong {
+    color: var(--lima);
+  }
+
+  .foto-wrap {
+    position: relative;
+  }
+  .foto-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 14px -14px -14px 14px;
+    border: 2px dashed rgba(207, 234, 140, 0.5);
+    border-radius: var(--raio);
+  }
+  .foto-wrap img {
+    position: relative;
+    border-radius: var(--raio);
+    border: 3px solid var(--lima);
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    width: 100%;
+  }
+  .cred {
+    position: absolute;
+    bottom: 1rem;
+    left: -1rem;
+    background: var(--branco);
+    color: var(--tinta);
+    font-size: 0.82rem;
+    padding: 0.55em 1em;
+    border-radius: 6px;
+    border-left: 5px solid var(--verde-vivo);
+    box-shadow: var(--sombra-suave);
+  }
+  .cred strong {
+    color: var(--verde-fiscal);
+  }
+
+  @media (max-width: 800px) {
+    .grid {
+      grid-template-columns: 1fr;
+      padding-top: 2.2rem;
+      padding-bottom: 2.5rem;
+    }
+    .foto-wrap {
+      order: -1;
+      width: 100%; /* ocupa a largura toda no mobile */
+    }
+    .foto-wrap::before {
+      inset: 10px -10px -10px 10px;
+    }
+    .foto-wrap img {
+      aspect-ratio: 1 / 1;
+    }
+    .cred {
+      left: 0.8rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .entra {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+    .sublinhado::after {
+      transform: scaleX(1);
+      animation: none;
+    }
+  }
+</style>

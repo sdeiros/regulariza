@@ -1,0 +1,189 @@
+---
+const categorias = [
+  {
+    titulo: 'Clínicas & Consultórios',
+    icone: 'M4 21V8l8-5 8 5v13M4 21h16M9 21v-5h6v5M10 11h4M12 9v4',
+    itens: [
+      'Proprietários de clínicas de Estética',
+      'Responsáveis técnicos',
+      'Empreendedores da Estética, Saúde e Beleza',
+    ],
+  },
+  {
+    titulo: 'Saúde Esteta',
+    icone: 'M12 3v18M3 12h18',
+    itens: [
+      'Biomédicos e Farmacêuticos Estetas',
+      'Cirurgiões-Dentistas, Médicos e Enfermeiros',
+      'Biólogos Estetas e Fisioterapeutas Dermato Funcional',
+    ],
+  },
+  {
+    titulo: 'Estética & Beleza',
+    icone: 'M12 3l2.1 5.6L20 10l-5.9 1.4L12 17l-2.1-5.6L4 10l5.9-1.4L12 3z',
+    itens: [
+      'Esteticistas e Técnicos em Estética',
+      'Terapeutas Capilares e Massoterapeutas',
+      'Depilação, Cílios, Sobrancelhas e Nail Designer',
+    ],
+  },
+  {
+    titulo: 'Estúdios & Práticas',
+    icone: 'M6 18L18 6M15 6h3v3M8 16l-2 2M17 13l-4 4',
+    itens: [
+      'Micropigmentação e Tatuagem',
+      'Podologia e Hidragloss',
+      'Práticas Integrativas (Ozonioterapia, Acupuntura, MTC...)',
+    ],
+  },
+];
+---
+
+<section class="para-quem">
+  <div class="container">
+    <div class="cabecalho reveal">
+      <h2 class="anima-texto">Se você atende, <span class="grifo">a VISA fiscaliza</span></h2>
+      <p class="apoio">
+        Para profissionais e estudantes de estética, saúde e beleza, que atuam em clínicas, consultórios e estúdios.
+      </p>
+    </div>
+
+    <div class="grade">
+      {
+        categorias.map((cat, i) => (
+          <article class="categoria reveal" style={`--i: ${i}`}>
+            <div class="topo-cat">
+              <span class="icone" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path
+                    d={cat.icone}
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <h3>{cat.titulo}</h3>
+            </div>
+            <ul>
+              {cat.itens.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="fecho reveal" style="--i: 4">
+      Sua atividade é fiscalizada pela Vigilância Sanitária?
+      <strong>Então este workshop é para você.</strong>
+    </p>
+  </div>
+</section>
+
+<style>
+  .para-quem {
+    padding: 3.5rem 0;
+  }
+  .cabecalho {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 2.2rem;
+  }
+  h2 {
+    font-size: clamp(2.6rem, 4.2vw, 3rem);
+    font-weight: 800;
+    color: var(--verde-fiscal);
+    margin: 0rem 0 2rem;
+  }
+  .apoio {
+    color: var(--tinta-suave);
+  }
+
+  .grade {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.1rem;
+  }
+  .categoria {
+    background: var(--branco);
+    border: 1px solid rgba(38, 93, 43, 0.22);
+    border-radius: var(--raio);
+    padding: 1.5rem 1.4rem;
+    transition:
+      transform var(--transicao),
+      box-shadow var(--transicao),
+      border-color var(--transicao);
+  }
+  .categoria:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-suave);
+    border-color: var(--verde-vivo);
+  }
+  .topo-cat {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 0.9rem;
+  }
+  .icone {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    background: var(--lima-suave);
+    color: var(--verde-fiscal);
+    border-radius: 10px;
+  }
+  .icone svg {
+    width: 22px;
+    height: 22px;
+  }
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--verde-fiscal);
+  }
+  ul {
+    list-style: none;
+    display: grid;
+    gap: 0.45rem;
+  }
+  li {
+    font-size: 0.88rem;
+    color: var(--tinta-suave);
+    padding-left: 1.2em;
+    position: relative;
+  }
+  li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--verde-vivo);
+    font-weight: 700;
+  }
+
+  .fecho {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.08rem;
+    color: var(--tinta-suave);
+  }
+  .fecho strong {
+    color: var(--verde-fiscal);
+  }
+
+  @media (max-width: 1000px) {
+    .grade {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .grade {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

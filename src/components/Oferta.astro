@@ -1,0 +1,254 @@
+---
+import { workshop, oferta } from '../config';
+---
+
+<section class="secao-oferta" id="oferta">
+  <div class="container">
+    <div class="card reveal">
+      <span class="carimbo" aria-hidden="true">Nota 10!</span>
+      <h2 class="anima-texto">Garanta sua vaga no workshop</h2>
+      <p class="detalhes">
+        {workshop.formato} · {workshop.data} às {workshop.horario}
+      </p>
+
+      <div class="contagem" data-alvo={workshop.dataISO} hidden>
+        <p class="contagem-rotulo">Começa em:</p>
+        <div class="blocos">
+          <span class="bloco"><b data-u="d">00</b><small>dias</small></span>
+          <span class="bloco"><b data-u="h">00</b><small>horas</small></span>
+          <span class="bloco"><b data-u="m">00</b><small>min</small></span>
+          <span class="bloco"><b data-u="s">00</b><small>seg</small></span>
+        </div>
+      </div>
+
+      <ul class="inclui">
+        <li><strong>Workshop online</strong> — o passo a passo completo da regularização</li>
+        <li><strong>Bônus 01</strong> — E-book Estética Blindada</li>
+        <li><strong>Bônus 02</strong> — Checklist da Regulariza Visa</li>
+        <li><strong>Bônus 03</strong> — ROI da ANVISA para Estética</li>
+      </ul>
+
+      <p class="preco">
+        <span class="tudo-isso">Tudo isso por</span>
+        <s>De {oferta.precoDe}</s>
+        <strong>{oferta.precoPor}</strong>
+      </p>
+      <p class="aviso">
+        Menos do que uma multa. Menos do que um dia de portas fechadas.
+        Não deixe para tomar providência depois da interdição.
+      </p>
+      <a href={oferta.checkoutUrl} target="_blank" rel="noopener" class="cta">Quero me inscrever agora</a>
+      <p class="micro">Pagamento seguro via Hotmart</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .secao-oferta {
+    background:
+      radial-gradient(50rem 26rem at -10% 110%, rgba(207, 234, 140, 0.16), transparent 60%),
+      var(--verde-fiscal);
+    padding: 4rem 0;
+  }
+  .card {
+    position: relative;
+    background: var(--branco);
+    border-radius: var(--raio);
+    padding: 3rem 2.5rem;
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  }
+  .carimbo {
+    position: absolute;
+    top: -1.4rem;
+    right: 1.5rem;
+    font-family: var(--fonte-display);
+    font-weight: 800;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--verde-vivo);
+    border: 3px solid var(--verde-vivo);
+    border-radius: 6px;
+    padding: 0.2em 0.7em;
+    transform: rotate(7deg);
+    background: var(--branco);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  }
+  h2 {
+    font-size: clamp(1.9rem, 4vw, 2.7rem);
+    font-weight: 800;
+    color: var(--verde-fiscal);
+    margin: 1.1rem 0 0.4rem;
+  }
+  .detalhes {
+    font-family: var(--fonte-ficha);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--tinta-suave);
+    margin-bottom: 1.4rem;
+  }
+
+  .contagem {
+    margin-bottom: 1.4rem;
+  }
+  .contagem-rotulo {
+    font-family: var(--fonte-ficha);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--tinta-suave);
+    margin-bottom: 0.5rem;
+  }
+  .blocos {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+  .bloco {
+    display: grid;
+    min-width: 62px;
+    background: var(--verde-fiscal);
+    color: var(--branco);
+    border-radius: 8px;
+    padding: 0.5rem 0.4rem 0.4rem;
+  }
+  .bloco b {
+    font-family: var(--fonte-display);
+    font-size: 1.9rem;
+    font-weight: 800;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .bloco small {
+    font-family: var(--fonte-ficha);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--lima);
+  }
+
+  .inclui {
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
+    max-width: 420px;
+    margin: 0 auto 1.6rem;
+    text-align: left;
+  }
+  .inclui li {
+    background: var(--papel);
+    border: 1px solid rgba(38, 93, 43, 0.18);
+    border-radius: 8px;
+    padding: 0.6rem 0.9rem 0.6rem 2.3rem;
+    font-size: 0.92rem;
+    color: var(--tinta-suave);
+    position: relative;
+  }
+  .inclui li::before {
+    content: '✓';
+    position: absolute;
+    left: 0.9rem;
+    color: var(--verde-vivo);
+    font-weight: 700;
+  }
+  .inclui strong {
+    color: var(--verde-fiscal);
+  }
+
+  .preco {
+    margin-bottom: 0.8rem;
+  }
+  .tudo-isso {
+    display: block;
+    font-family: var(--fonte-ficha);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--tinta-suave);
+    margin-bottom: 0.2rem;
+  }
+  .preco s {
+    display: block;
+    color: var(--alerta);
+    font-size: 1.1rem;
+  }
+  .preco strong {
+    font-family: var(--fonte-display);
+    font-weight: 800;
+    font-size: clamp(2.9rem, 6.5vw, 4rem);
+    color: var(--verde-fiscal);
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  .aviso {
+    color: var(--tinta-suave);
+    font-size: 0.98rem;
+    max-width: 28rem;
+    margin: 0 auto 1.8rem;
+  }
+  .micro {
+    font-family: var(--fonte-ficha);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--tinta-suave);
+    margin-top: 0.9rem;
+  }
+
+  @media (max-width: 480px) {
+    .secao-oferta {
+      padding: 3rem 0;
+    }
+    .card {
+      padding: 2.2rem 1.2rem 1.8rem;
+    }
+    .carimbo {
+      font-size: 1.15rem;
+      right: 1rem;
+    }
+    .blocos {
+      gap: 0.45rem;
+    }
+    .bloco {
+      min-width: 56px;
+    }
+    .bloco b {
+      font-size: 1.6rem;
+    }
+  }
+</style>
+
+<script>
+  const el = document.querySelector<HTMLElement>('.contagem');
+  if (el) {
+    const alvo = new Date(el.dataset.alvo!).getTime();
+    const unidades = {
+      d: el.querySelector<HTMLElement>('[data-u="d"]')!,
+      h: el.querySelector<HTMLElement>('[data-u="h"]')!,
+      m: el.querySelector<HTMLElement>('[data-u="m"]')!,
+      s: el.querySelector<HTMLElement>('[data-u="s"]')!,
+    };
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const tick = () => {
+      const resta = alvo - Date.now();
+      if (resta <= 0) {
+        // Data já passou: esconde o contador em vez de mostrar zeros
+        el.hidden = true;
+        clearInterval(intervalo);
+        return;
+      }
+      el.hidden = false;
+      unidades.d.textContent = pad(Math.floor(resta / 86400000));
+      unidades.h.textContent = pad(Math.floor(resta / 3600000) % 24);
+      unidades.m.textContent = pad(Math.floor(resta / 60000) % 60);
+      unidades.s.textContent = pad(Math.floor(resta / 1000) % 60);
+    };
+    const intervalo = setInterval(tick, 1000);
+    tick();
+  }
+</script>

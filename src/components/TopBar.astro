@@ -1,0 +1,201 @@
+---
+import { oferta, nav } from '../config';
+---
+
+<header class="topbar" id="topbar">
+  <div class="container inner">
+    <a href="/" class="logo-link" aria-label="Regulariza Visa — início">
+      <img src="/logo-horizontal-branca.svg" alt="Regulariza Visa" class="logo" width="180" height="57" />
+    </a>
+
+    {
+      nav.length > 0 && (
+        <>
+          <nav class="menu" aria-label="Navegação principal">
+            {nav.map((item) => (
+              <a href={item.href}>{item.rotulo}</a>
+            ))}
+          </nav>
+          <button
+            type="button"
+            class="hamburguer"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="menu-mobile"
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </>
+      )
+    }
+
+    <a href={oferta.checkoutUrl} target="_blank" rel="noopener" class="mini-cta">Inscreva-se</a>
+  </div>
+
+  {
+    nav.length > 0 && (
+      <nav class="menu-mobile" id="menu-mobile" aria-label="Navegação principal (mobile)">
+        {nav.map((item) => (
+          <a href={item.href}>{item.rotulo}</a>
+        ))}
+      </nav>
+    )
+  }
+</header>
+
+<style>
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: var(--verde-fiscal);
+    border-bottom: 3px solid var(--lima);
+    transition: box-shadow var(--transicao);
+  }
+  .topbar.rolou {
+    box-shadow: 0 6px 24px rgba(23, 37, 26, 0.35);
+  }
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+  }
+  .logo-link {
+    display: block;
+    flex-shrink: 0;
+  }
+  .logo {
+    height: 44px;
+    width: auto;
+  }
+
+  /* Menu desktop — só existe quando há itens no config */
+  .menu {
+    display: flex;
+    gap: 1.6rem;
+    margin-right: auto;
+  }
+  .menu a {
+    font-family: var(--fonte-ficha);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.85);
+    transition: color var(--transicao);
+  }
+  .menu a:hover {
+    color: var(--lima);
+  }
+
+  .mini-cta {
+    font-family: var(--fonte-ficha);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--verde-escuro);
+    background: var(--lima);
+    padding: 0.5em 1.1em;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background var(--transicao);
+  }
+  .mini-cta:hover {
+    background: #dbf2a1;
+  }
+  .mini-cta:focus-visible {
+    outline: 3px solid var(--lima);
+    outline-offset: 3px;
+  }
+
+  /* Hambúrguer + menu mobile (aparecem só com nav preenchida) */
+  .hamburguer {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+  }
+  .hamburguer span {
+    width: 24px;
+    height: 2px;
+    background: var(--branco);
+    border-radius: 2px;
+    transition: transform var(--transicao), opacity var(--transicao);
+  }
+  .hamburguer[aria-expanded='true'] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .hamburguer[aria-expanded='true'] span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburguer[aria-expanded='true'] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+  .menu-mobile {
+    display: none;
+    flex-direction: column;
+    background: var(--verde-escuro);
+    padding: 0.5rem 1.25rem 1rem;
+  }
+  .menu-mobile a {
+    font-family: var(--fonte-ficha);
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .menu-mobile.aberto {
+    display: flex;
+  }
+
+  @media (max-width: 800px) {
+    .menu {
+      display: none;
+    }
+    .hamburguer {
+      display: flex;
+    }
+  }
+  @media (max-width: 380px) {
+    .logo {
+      height: 36px;
+    }
+    .mini-cta {
+      font-size: 0.68rem;
+      padding: 0.5em 0.8em;
+    }
+  }
+</style>
+
+<script>
+  // Sombra ao rolar
+  const topbar = document.getElementById('topbar');
+  window.addEventListener(
+    'scroll',
+    () => topbar?.classList.toggle('rolou', window.scrollY > 8),
+    { passive: true }
+  );
+
+  // Menu mobile (só age se a nav existir)
+  const botao = document.querySelector<HTMLButtonElement>('.hamburguer');
+  const menuMobile = document.getElementById('menu-mobile');
+  botao?.addEventListener('click', () => {
+    const aberto = menuMobile?.classList.toggle('aberto');
+    botao.setAttribute('aria-expanded', String(!!aberto));
+    botao.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+  });
+</script>

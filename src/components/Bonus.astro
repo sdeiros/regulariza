@@ -1,0 +1,111 @@
+---
+const bonus = [
+  {
+    numero: '01',
+    titulo: 'E-book Estética Blindada',
+    texto:
+      'As principais não conformidades que podem interditar seu estabelecimento, para você corrigir antes que virem multa.',
+  },
+  {
+    numero: '02',
+    titulo: 'Checklist da Regulariza Visa',
+    texto:
+      'Um guia completo para conferir, item por item, se a sua clínica passaria na inspeção hoje.',
+  },
+  {
+    numero: '03',
+    titulo: 'ROI da ANVISA para Estética',
+    texto:
+      'O roteiro oficial que os fiscais usam, para você fazer autoinspeções como quem está do outro lado.',
+  },
+];
+---
+
+<section class="secao-bonus">
+  <div class="container">
+    <div class="cabecalho reveal">
+      <h2 class="anima-texto">Você sai do workshop com o kit de inspeção na mão</h2>
+    </div>
+    <div class="cards">
+      {
+        bonus.map((b, i) => (
+          <article class="card reveal" style={`--i: ${i}`}>
+            <p class="etiqueta">Bônus {b.numero}</p>
+            <h3>{b.titulo}</h3>
+            <p>{b.texto}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .secao-bonus {
+    background: var(--verde-fiscal);
+    color: var(--branco);
+    padding: 3.5rem 0;
+  }
+  .cabecalho {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 2.2rem;
+  }
+  h2 {
+    font-size: clamp(2rem, 4.2vw, 3rem);
+    font-weight: 800;
+    margin-top: 1rem;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.3rem;
+  }
+  .card {
+    background: var(--branco);
+    color: var(--tinta);
+    border-radius: var(--raio);
+    padding: 1.8rem;
+    border-top: 6px solid var(--verde-vivo);
+    transition: transform var(--transicao), box-shadow var(--transicao);
+  }
+  .card:hover {
+    transform: translateY(-6px) rotate(-0.5deg);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  }
+  .etiqueta {
+    font-family: var(--fonte-ficha);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--verde-escuro);
+    background: var(--lima);
+    display: inline-block;
+    padding: 0.3em 0.8em;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+  }
+  h3 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--verde-fiscal);
+    margin-bottom: 0.5rem;
+  }
+  .card p:last-child {
+    color: var(--tinta-suave);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 800px) {
+    .cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card {
+      transition: none;
+    }
+  }
+</style>

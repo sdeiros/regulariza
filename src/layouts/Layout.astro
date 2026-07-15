@@ -1,0 +1,329 @@
+---
+import { site } from "../config";
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{site.titulo}</title>
+    <meta name="description" content={site.descricao} />
+    <meta name="theme-color" content="#265D2B" />
+    <link rel="icon" type="image/svg+xml" href="/logo-vertical.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={site.nome} />
+    <meta property="og:title" content={site.titulo} />
+    <meta property="og:description" content={site.descricao} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=Public+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+/* ============ SCROLLBAR DO NAVEGADOR ============ */
+  /* Firefox */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--verde-fiscal) var(--papel);
+  }
+
+  /* Chrome, Edge, Brave, Safari */
+  ::-webkit-scrollbar {
+    width: 180px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--papel);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--verde-fiscal), var(--verde-vivo));
+    border-radius: 999px;
+    border: 2px solid var(--papel); /* respiro nas laterais — efeito "pílula flutuante" */
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--verde-vivo), var(--verde-fiscal));
+  }
+
+  /* ============ TOKENS DA MARCA ============ */
+  :root {
+    --verde-fiscal: #265d2b;
+    --verde-escuro: #1a4220;
+    --verde-vivo: #00a650;
+    --lima: #cfea8c;
+    --lima-suave: #e9f5cd;
+    --papel: #f6f8f2;
+    --branco: #ffffff;
+    --tinta: #17251a;
+    --tinta-suave: #45564a;
+    --alerta: #b3261e;
+
+    --fonte-display: "Barlow Condensed", sans-serif;
+    --fonte-texto: "Public Sans", system-ui, sans-serif;
+    --fonte-ficha: "IBM Plex Mono", monospace;
+
+    --largura-max: 1100px;
+    --raio: 12px;
+    --sombra-suave: 0 10px 30px rgba(23, 37, 26, 0.08);
+    --transicao: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: var(--fonte-texto);
+    color: var(--tinta);
+    background: var(--papel);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  .container {
+    max-width: var(--largura-max);
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--fonte-display);
+    text-transform: uppercase;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+  }
+
+  .grifo {
+    background-image: linear-gradient(transparent 55%, var(--lima) 55%);
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    padding: 0 0.08em;
+    transition: background-size 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.35s;
+  }
+  .visivel .grifo,
+  .grifo.visivel {
+    background-size: 100% 100%;
+  }
+
+  /* ============ BOTÃO CTA (com brilho) ============ */
+  .cta {
+    position: relative;
+    display: inline-block;
+    font-family: var(--fonte-display);
+    font-weight: 700;
+    font-size: 1.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    text-align: center;
+    color: var(--verde-escuro);
+    background: var(--lima);
+    border: 2px solid var(--verde-escuro);
+    border-radius: var(--raio);
+    padding: 0.85rem 2.2rem;
+    box-shadow: 4px 4px 0 var(--verde-escuro);
+    overflow: hidden;
+    transition:
+      transform var(--transicao),
+      box-shadow var(--transicao),
+      background var(--transicao);
+  }
+  .cta::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -80%;
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(
+      100deg,
+      transparent,
+      rgba(255, 255, 255, 0.55),
+      transparent
+    );
+    transform: skewX(-20deg);
+    animation: brilho 4.5s ease-in-out infinite;
+  }
+  @keyframes brilho {
+    0%,
+    72% {
+      left: -80%;
+    }
+    88%,
+    100% {
+      left: 130%;
+    }
+  }
+  .cta:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--verde-escuro);
+    background: #dbf2a1;
+  }
+  .cta:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--verde-escuro);
+  }
+  .cta:focus-visible {
+    outline: 3px solid var(--verde-vivo);
+    outline-offset: 3px;
+  }
+
+  /* ============ REVEAL ESCALONADO ============ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
+  .reveal.visivel {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ============ TÍTULOS PALAVRA A PALAVRA ============ */
+  .anima-texto .palavra {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+  .anima-texto .palavra > .pi {
+    display: inline-block;
+    transform: translateY(115%);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--w, 0) * 60ms);
+  }
+  .visivel .palavra > .pi,
+  .visivel.anima-texto .palavra > .pi {
+    transform: none;
+  }
+
+  /* ============ MOBILE ============ */
+  @media (max-width: 480px) {
+    .cta {
+      display: block;
+      width: 100%;
+      font-size: 1.25rem;
+      padding: 0.9rem 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .anima-texto .palavra > .pi {
+      transform: none;
+      transition: none;
+    }
+    .grifo {
+      background-size: 100% 100%;
+      transition: none;
+    }
+    .cta,
+    .cta::after {
+      transition: none;
+      animation: none;
+    }
+  }
+
+  
+</style>
+
+<script>
+  const reduzido = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  // Divide os títulos em palavras para animar em cascata.
+  // Elementos filhos (ex: .grifo) são tratados como uma unidade só.
+  if (!reduzido) {
+    document.querySelectorAll<HTMLElement>(".anima-texto").forEach((el) => {
+      let indice = 0;
+      const embrulha = (conteudo: Node): HTMLElement => {
+        const externo = document.createElement("span");
+        externo.className = "palavra";
+        const interno = document.createElement("span");
+        interno.className = "pi";
+        interno.style.setProperty("--w", String(indice++));
+        interno.append(conteudo);
+        externo.append(interno);
+        return externo;
+      };
+      const nodos = Array.from(el.childNodes);
+      el.textContent = "";
+      for (const nodo of nodos) {
+        if (nodo.nodeType === Node.TEXT_NODE) {
+          const palavras = (nodo.textContent ?? "")
+            .split(/\s+/)
+            .filter(Boolean);
+          for (const p of palavras) {
+            el.append(embrulha(document.createTextNode(p)), " ");
+          }
+        } else {
+          el.append(embrulha(nodo), " ");
+        }
+      }
+    });
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add("visivel");
+          observer.unobserve(e.target);
+        }
+      }
+    },
+    { threshold: 0.12 },
+  );
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+</script>
+
+<script>
+  import Lenis from 'lenis';
+
+  const reduzido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduzido) {
+    const lenis = new Lenis({
+      duration: 1.1,        // quanto maior, mais "flutuante" (1.0–1.4 é o doce)
+      smoothWheel: true,
+      touchMultiplier: 1.5,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  }
+</script>

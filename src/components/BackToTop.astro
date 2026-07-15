@@ -1,0 +1,124 @@
+<button type="button" class="topo" id="voltar-topo" aria-label="Voltar ao topo">
+  <svg class="anel" viewBox="0 0 48 48" aria-hidden="true">
+    <circle class="trilho" cx="24" cy="24" r="21" />
+    <circle class="progresso" cx="24" cy="24" r="21" />
+  </svg>
+  <svg class="seta" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M12 19V6M12 6l-6 6M12 6l6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+</button>
+
+<style>
+  .topo {
+    position: fixed;
+    right: 1.2rem;
+    bottom: 1.4rem;
+    z-index: 55;
+    width: 52px;
+    height: 52px;
+    border: none;
+    border-radius: 50%;
+    background: var(--verde-fiscal);
+    color: var(--lima);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 10px 24px rgba(23, 37, 26, 0.3);
+    opacity: 0;
+    transform: translateY(16px) scale(0.85);
+    pointer-events: none;
+    transition:
+      opacity var(--transicao),
+      transform var(--transicao),
+      background var(--transicao);
+  }
+  .topo.visivel {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .topo:hover {
+    background: var(--verde-escuro);
+  }
+  .topo:hover .seta {
+    animation: pular 0.5s ease;
+  }
+  @keyframes pular {
+    35% {
+      transform: translateY(-4px);
+    }
+    70% {
+      transform: translateY(1px);
+    }
+  }
+  .topo:focus-visible {
+    outline: 3px solid var(--lima);
+    outline-offset: 3px;
+  }
+
+  .seta {
+    width: 20px;
+    height: 20px;
+    grid-area: 1 / 1;
+  }
+
+  /* Anel de progresso da leitura */
+  .anel {
+    grid-area: 1 / 1;
+    width: 48px;
+    height: 48px;
+    transform: rotate(-90deg);
+  }
+  .anel circle {
+    fill: none;
+    stroke-width: 2.5;
+  }
+  .trilho {
+    stroke: rgba(207, 234, 140, 0.25);
+  }
+  .progresso {
+    stroke: var(--lima);
+    stroke-linecap: round;
+    stroke-dasharray: 132; /* 2πr, r=21 */
+    stroke-dashoffset: 132;
+  }
+
+  /* No mobile, sobe pra não brigar com a barra fixa de CTA */
+  @media (max-width: 800px) {
+    .topo {
+      bottom: 5.6rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .topo {
+      transition: opacity 0.2s;
+      transform: none;
+    }
+    .topo:hover .seta {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const botao = document.getElementById('voltar-topo');
+  const progresso = botao?.querySelector<SVGCircleElement>('.progresso');
+  const CIRCUNFERENCIA = 132;
+
+  const atualiza = () => {
+    if (!botao || !progresso) return;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const fracao = total > 0 ? window.scrollY / total : 0;
+    progresso.style.strokeDashoffset = String(CIRCUNFERENCIA * (1 - fracao));
+    botao.classList.toggle('visivel', window.scrollY > window.innerHeight * 0.6);
+  };
+
+  window.addEventListener('scroll', atualiza, { passive: true });
+  atualiza();
+
+  botao?.addEventListener('click', () => {
+    const reduzido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduzido ? 'auto' : 'smooth' });
+  });
+</script>

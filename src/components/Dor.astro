@@ -1,0 +1,146 @@
+---
+import { oferta } from '../config';
+---
+
+<section class="dor">
+  <div class="container">
+    <div class="cabecalho reveal">
+      <h2 class="anima-texto">
+        Se a fiscalização chegasse <span class="grifo">hoje</span>, sua clínica
+        tiraria nota 10?
+      </h2>
+      <p class="apoio">
+        Se você sentiu um frio na barriga agora, existem dois caminhos:
+      </p>
+    </div>
+
+    <div class="contraste">
+      <div class="lado risco reveal" style="--i: 0">
+        <p class="rotulo">□ Não conforme</p>
+        <h3>Esperar a fiscalização chegar</h3>
+        <ul>
+          <li>Multas que custam muito mais que a adequação</li>
+          <li>Risco de interdição e portas fechadas</li>
+          <li>Correr atrás do prejuízo sob pressão</li>
+        </ul>
+      </div>
+      <div class="lado blindada reveal" style="--i: 1">
+        <p class="rotulo">✓ Conforme</p>
+        <h3>Se adequar antes, no seu ritmo</h3>
+        <ul>
+          <li>Passo a passo claro de quem já fiscalizou</li>
+          <li>Clínica preparada para qualquer inspeção</li>
+          <li>Tranquilidade para focar nos seus clientes</li>
+        </ul>
+        <a href={oferta.checkoutUrl} target="_blank" rel="noopener" class="cta menor">Escolho me blindar</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .dor {
+    padding: 3.5rem 0;
+  }
+  .cabecalho {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 2rem;
+  }
+  h2 {
+    font-size: clamp(2rem, 4.2vw, 3rem);
+    font-weight: 800;
+    color: var(--verde-fiscal);
+    margin: 1rem 0 0.6rem;
+  }
+  .apoio {
+    color: var(--tinta-suave);
+  }
+
+  .contraste {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .lado {
+    border-radius: var(--raio);
+    padding: 1.8rem;
+    transition: transform var(--transicao), box-shadow var(--transicao);
+  }
+  .lado:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-suave);
+  }
+  .rotulo {
+    font-family: var(--fonte-ficha);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .lado h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+  .lado ul {
+    list-style: none;
+    display: grid;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .risco {
+    background: var(--branco);
+    border: 1.5px dashed rgba(179, 38, 30, 0.5);
+    color: var(--tinta-suave);
+  }
+  .risco .rotulo {
+    color: var(--alerta);
+  }
+  .risco h3 {
+    color: var(--tinta);
+  }
+  .risco li::before {
+    content: '✕ ';
+    color: var(--alerta);
+    font-weight: 700;
+  }
+
+  .blindada {
+    background: var(--verde-fiscal);
+    color: rgba(255, 255, 255, 0.92);
+    border: 1.5px solid var(--verde-fiscal);
+  }
+  .blindada .rotulo {
+    color: var(--lima);
+  }
+  .blindada h3 {
+    color: var(--branco);
+  }
+  .blindada li::before {
+    content: '✓ ';
+    color: var(--lima);
+    font-weight: 700;
+  }
+  .cta.menor {
+    font-size: 1.1rem;
+    padding: 0.6rem 1.6rem;
+    margin-top: 1.2rem;
+  }
+
+  @media (max-width: 700px) {
+    .contraste {
+      grid-template-columns: 1fr;
+    }
+    .dor {
+      padding: 2.8rem 0;
+    }
+    .lado {
+      padding: 1.4rem 1.2rem;
+    }
+  }
+</style>

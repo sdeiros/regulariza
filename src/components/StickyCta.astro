@@ -1,0 +1,110 @@
+---
+import { oferta, workshop } from '../config';
+---
+
+<div class="sticky-cta" id="sticky-cta">
+  <div class="info">
+    <span class="preco">{oferta.precoPor}</span>
+    <span class="data">Workshop {workshop.data} · {workshop.horario}</span>
+  </div>
+  <a href={oferta.checkoutUrl} target="_blank" rel="noopener" class="botao">Inscrever-se</a>
+</div>
+
+<style>
+  .sticky-cta {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: var(--verde-escuro);
+    color: var(--branco);
+    padding: 0.7rem 1.1rem;
+    padding-bottom: calc(0.7rem + env(safe-area-inset-bottom));
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.25);
+    transform: translateY(110%);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .sticky-cta.ativa {
+    transform: none;
+  }
+  .info {
+    display: grid;
+    line-height: 1.25;
+  }
+  .preco {
+    font-family: var(--fonte-display);
+    font-weight: 800;
+    font-size: 1.35rem;
+    text-transform: uppercase;
+    color: var(--lima);
+  }
+  .data {
+    font-family: var(--fonte-ficha);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .botao {
+    font-family: var(--fonte-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    color: var(--verde-escuro);
+    background: var(--lima);
+    border-radius: 8px;
+    padding: 0.6rem 1.4rem;
+    white-space: nowrap;
+  }
+  .botao:focus-visible {
+    outline: 3px solid var(--lima);
+    outline-offset: 3px;
+  }
+
+  /* Só no mobile — no desktop o CTA está sempre visível nas seções */
+  @media (min-width: 801px) {
+    .sticky-cta {
+      display: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sticky-cta {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const barra = document.getElementById('sticky-cta');
+  const hero = document.querySelector('.hero');
+  const oferta = document.getElementById('oferta');
+  if (barra && hero && oferta) {
+    let heroVisivel = true;
+    let ofertaVisivel = false;
+    const atualiza = () => {
+      // Aparece depois do hero e some quando a oferta final está na tela
+      barra.classList.toggle('ativa', !heroVisivel && !ofertaVisivel);
+    };
+    new IntersectionObserver(
+      ([e]) => {
+        heroVisivel = e.isIntersecting;
+        atualiza();
+      },
+      { threshold: 0.2 }
+    ).observe(hero);
+    new IntersectionObserver(
+      ([e]) => {
+        ofertaVisivel = e.isIntersecting;
+        atualiza();
+      },
+      { threshold: 0.25 }
+    ).observe(oferta);
+  }
+</script>

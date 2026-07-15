@@ -1,0 +1,86 @@
+---
+import { site } from '../config';
+const ano = new Date().getFullYear();
+---
+
+<footer class="rodape">
+  <div class="container inner">
+    <img src="/logo-horizontal-branca.svg" alt="Regulariza Visa" class="logo" width="150" height="48" />
+    <div class="links">
+      <a
+        href={site.instagram}
+        target="_blank"
+        rel="noopener"
+        class="instagram"
+        aria-label="Instagram da Regulariza Visa"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" stroke-width="1.8" />
+          <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8" />
+          <circle cx="17.4" cy="6.6" r="1.3" fill="currentColor" />
+        </svg>
+        Instagram
+      </a>
+      <button type="button" data-abre-modal="modal-termos">Termos de Uso</button>
+    </div>
+    <p class="copy">© {ano} — {site.nome} · Todos os direitos reservados</p>
+  </div>
+</footer>
+
+<style>
+  .rodape {
+    background: var(--verde-escuro);
+    color: rgba(255, 255, 255, 0.85);
+    padding: 2.5rem 0 3rem;
+  }
+  .inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    text-align: center;
+  }
+  .logo {
+    height: 40px;
+    width: auto;
+  }
+  .links {
+    display: flex;
+    gap: 1.8rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .links a,
+  .links button {
+    font-family: var(--fonte-ficha);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    color: var(--lima);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    transition: opacity var(--transicao);
+  }
+  .links button {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .links a:hover,
+  .links button:hover {
+    opacity: 0.75;
+  }
+  .links a:focus-visible,
+  .links button:focus-visible {
+    outline: 3px solid var(--lima);
+    outline-offset: 3px;
+  }
+  .copy {
+    font-size: 0.85rem;
+  }
+</style>

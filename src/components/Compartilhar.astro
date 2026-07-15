@@ -1,0 +1,119 @@
+---
+import { site, compartilhar } from '../config';
+---
+
+<button type="button" class="compartilhar" id="btn-compartilhar" aria-label="Compartilhar este site">
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <circle cx="6" cy="12" r="2.6" stroke="currentColor" stroke-width="1.9" />
+    <circle cx="17.5" cy="5.5" r="2.6" stroke="currentColor" stroke-width="1.9" />
+    <circle cx="17.5" cy="18.5" r="2.6" stroke="currentColor" stroke-width="1.9" />
+    <path d="M8.4 10.8l6.7-4M8.4 13.2l6.7 4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+  </svg>
+</button>
+
+<div class="toast" id="toast-compartilhar" role="status" aria-live="polite">
+  ✓ Link copiado! É só colar e enviar.
+</div>
+
+<script is:inline define:vars={{ titulo: compartilhar.titulo, texto: compartilhar.texto, url: site.url }}>
+  const botao = document.getElementById('btn-compartilhar');
+  const toast = document.getElementById('toast-compartilhar');
+  let timer;
+
+  botao?.addEventListener('click', async () => {
+    const dados = { title: titulo, text: texto, url };
+    // 1º: menu nativo de compartilhamento (mobile)
+    if (navigator.share) {
+      try {
+        await navigator.share(dados);
+        return;
+      } catch (e) {
+        if (e instanceof Error && e.name === 'AbortError') return; // pessoa cancelou
+      }
+    }
+    // 2º: copia texto + link (desktop)
+    try {
+      await navigator.clipboard.writeText(`${texto}\n${url}`);
+      toast?.classList.add('ativo');
+      clearTimeout(timer);
+      timer = setTimeout(() => toast?.classList.remove('ativo'), 2600);
+    } catch {
+      window.prompt('Copie o link:', `${texto}\n${url}`);
+    }
+  });
+</script>
+
+<style>
+  .compartilhar {
+    position: fixed;
+    right: 1.2rem;
+    bottom: 5.2rem;
+    z-index: 55;
+    width: 52px;
+    height: 52px;
+    border: 2px solid var(--verde-fiscal);
+    border-radius: 50%;
+    background: var(--branco);
+    color: var(--verde-fiscal);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 10px 24px rgba(23, 37, 26, 0.2);
+    transition:
+      transform var(--transicao),
+      background var(--transicao),
+      color var(--transicao);
+  }
+  .compartilhar svg {
+    width: 22px;
+    height: 22px;
+  }
+  .compartilhar:hover {
+    background: var(--lima);
+    transform: translateY(-3px);
+  }
+  .compartilhar:focus-visible {
+    outline: 3px solid var(--verde-vivo);
+    outline-offset: 3px;
+  }
+
+  .toast {
+    position: fixed;
+    right: 1.2rem;
+    bottom: 8.9rem;
+    z-index: 56;
+    background: var(--verde-escuro);
+    color: var(--branco);
+    font-size: 0.85rem;
+    padding: 0.7em 1.1em;
+    border-radius: 8px;
+    border-left: 4px solid var(--lima);
+    box-shadow: 0 10px 24px rgba(23, 37, 26, 0.3);
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: opacity var(--transicao), transform var(--transicao);
+  }
+  .toast.ativo {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* No mobile, sobe pra ficar acima do voltar-ao-topo + barra de CTA */
+  @media (max-width: 800px) {
+    .compartilhar {
+      bottom: 9.4rem;
+    }
+    .toast {
+      bottom: 13.1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .compartilhar,
+    .toast {
+      transition: opacity 0.2s;
+      transform: none;
+    }
+  }
+</style>
