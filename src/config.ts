@@ -25,11 +25,11 @@ export const nav: { rotulo: string; href: string }[] = [];
 
 export const workshop = {
   // >>> ATUALIZE A DATA AQUI (texto exibido) <<<
-  data: '22/07',
+  data: '23/07',
   horario: '20h00',
   formato: '100% online',
   // >>> DATA/HORA REAL para a contagem regressiva (fuso de Brasília) <<<
-  dataISO: '2026-07-22T20:00:00-03:00',
+  dataISO: '2026-07-23T20:00:00-03:00',
 };
 
 export const oferta = {
